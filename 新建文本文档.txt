@@ -1,0 +1,103 @@
+transform:translate(x,y); x，y方向位移。
+transform:translateX(x)   只在x方向位移transform:translateY(y) 
+
+transform-origin:0 0; 设置缩放参考点。自己的左上角。（可以是px，%，left）
+transform:scale(0.5,0.5); x,y方向都缩小为原来的一半
+
+transform-origin:0 0; 设置旋转参考点
+transform:rotate(10deg);  //旋转10度
+
+transform:skew(10deg,10deg) x,y方向斜切10度
+
+transform:matrix(1,0,0,1,100,100) 矩阵转换。 都不接受单位。
+	第一个参数：X方向缩放
+	第二个参数：X方向斜切 弧度值
+	第三个参数：Y方向斜切 弧度值
+	第四个参数：Y方向缩放
+	第五个参数：X方向位移
+	第六个参数：Y方向位移  
+
+3D
+<body>
+   <div class="out">
+	<div class="inner"></div>
+   </div>
+<body>
+写在body上的样式
+perspective:500px;能看出out的旋转
+
+
+写在out上的样式
+perspective:500px;		给父级一个紧身，不然看不出来效果
+transform:rotateY(30deg)	out沿y轴旋转30du
+transform-style:preserve-3d;	inner随着out旋转而旋转，体现出3d功能。默认值为flat子元素不变化
+perspective-origin:50px 50px;	设置灭点。在屏幕中消失的位置
+backface-visibility:visible 	背面可见。hidden为不可见
+transform:matrix3d()	矩阵转换，16个参数
+
+写在inner上的样式
+transform:translate3D(x,y,z); x，y,z方向位移。
+transform:rotate3d(x,y,z,false);x,y,z方向旋转.false 旋转方向
+// transform:rotateX(10deg) rotateY(10deg) rotateZ(10deg);
+transform-origin:x,y,z;		设置旋转基准点（可以是px，%，left）
+
+过度：
+transition:width 2s ease 1s; width是过度的类型，2s 是过度的所需时间可以是ms。ease是过渡方式。 1s是延迟1s后执行过渡
+transition-propery:all 过渡的css样式名称。all 表示所有样式的支持
+transition-duration:200ms 过渡完成时间
+transition-timing-function:ease 过渡类型默认为ease
+transition-delay:3s	过渡等待时间。延迟多少秒后执行过渡效果
+多个过渡用逗号隔开
+transition:width 2s ease 1s，height 2s ease 1s
+
+倒影
+-webkit-box-reflect:below 5px -webkit-gradient(linear,50% 0,50% 100%,color-stop(0,rgba(0,0,0,0)),color-stop(0.4,rgba(0,0,0,0.4)),color-stop(1,rgba(0,0,0,0.8)));
+below 是倒影位置在底部。5px 是与图片距离。 gradient是虚化
+
+动画animate
+<body>
+	<div class="one"></div>
+</body>
+<style>
+@keyframes first{ //动画规则
+	form{	//开始动画时width：200px 可以设置百分比
+	width:200px
+	}
+	to{	//结束动画是width: 400px
+	width:400px
+	}
+}
+@keyframes first{ //动画规则
+	0%{	//开始动画时width：200px 可以设置百分比
+	width:200px
+	}
+	40%{	
+	width:400px
+	}
+	80%{	
+	width:600px
+	}
+	100%{	
+	width:800px
+	}
+}
+  .one{
+ 	animation:first  2s ease;//定义动画名称 时间 效果 
+	}
+</style>
+
+animation-name:first 		动画名称
+animation-duration:200ms 	动画时间
+animation-timing-function:ease  动画类型
+animation-delay:3ms 		动画延迟时间
+animation-iteration-count:2 	动画播放次数.infinite 一直重复
+animation-direction：normal  	动画下一周期逆向播放。normal 正常播放。alternate 反向播放
+animation-play-state:running 	动画是否正在播放。running正在播放 paused暂停
+
+动画完成事件			过度完成时的事件
+animationend moz内核    	transitionend
+webkitAnimationEnd webkit内核	webkitTransitionEnd
+oAnimationEnd	opera内核	oTransitionEnd
+MSAnimationEnd 	ie内核		MSTransitionEnd
+
+动画事件添加方式用addEventListener。attachEvent 才可以
